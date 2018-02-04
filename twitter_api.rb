@@ -20,7 +20,9 @@ minute_past_time = Time.new - 1 * 60
 # 特定ユーザのtimelineを件数(10件)指定して取得
 client.user_timeline("pr2jsk", { count: 10 } ).each do |timeline|
   if tweet_id2time(client.status(timeline.id).id) > minute_past_time then
-    puts client.status(timeline.id).text
+    text =  client.status(timeline.id).text
+    puts text
+    client.update(text)
   end
 end
 
