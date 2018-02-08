@@ -5,6 +5,8 @@ require 'json'
 require 'uri'
 require 'net/http'
 
+# idから時間に変換
+# 参考url : https://qiita.com/riocampos/items/e5544325211976f2cfc1
 def tweet_id2time(id)
     Time.at(((id.to_i >> 22) + 1288834974657) / 1000.0)
 end
@@ -38,7 +40,6 @@ client.user_timeline("Bitcoin", { count: 10 } ).reverse_each do |timeline|
   if tweet_id2time(client.status(timeline.id).id) > minute_past_time then
     text =  client.status(timeline.id).text
     jp_text = translate(text)
-    #puts jp_text
     client.update(jp_text)
   end
 end
