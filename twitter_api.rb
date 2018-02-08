@@ -1,6 +1,9 @@
 require 'rubygems'
 require 'twitter'
 require 'pp'
+require 'json'
+require 'uri'
+require 'net/http'
 
 def tweet_id2time(id)
     Time.at(((id.to_i >> 22) + 1288834974657) / 1000.0)
@@ -13,33 +16,33 @@ client = Twitter::REST::Client.new do |config|
   config.access_token_secret = 'OFqQFeIgPOQLSFiVc7Krmw1nYxpEAQPstqTh8ZZeZPR4h' #'aVkFsFqzOMNgJfzLK8x5ZyIYtbZNaAJ3FAXsRKo5JNnfg'
 end
 
-'''
 def translate(text)
-    url = URL.parse()
+    url = URI.parse('https://www.googleapis.com/language/translate/v2')
+
     params = {
-        q: q,
+        q: text,
         target: "ja",
         source: "en",
-        key: ""
+        key: "AIzaSyDz65XDH_x_8dAsg1ChMSLBnSBvo4G8b2Q"
     }
     url.query = URI.encode_www_form(params)
     res = Net::HTTP.get_response(url)
-    JSON.parse(res.body)["data"]["translation"].first["translatedText"]
+    JSON.parse(res.body)["data"]["translations"].first["translatedText"]
 end
-'''
 
-
-# 一分前の時刻を取得
+# 10分前の時刻を取得
 minute_past_time = Time.new - 1 * 60 * 10
 
 # 特定ユーザのtimelineを件数(10件)指定して取得
 client.user_timeline("Bitcoin", { count: 10 } ).each do |timeline|
   if tweet_id2time(client.status(timeline.id).id) > minute_past_time then
     text =  client.status(timeline.id).text
-    puts text
+    jp_text = translate(text)
+    #puts jp_text
     client.update(text)
   end
 end
+
 
 '''
 # search
