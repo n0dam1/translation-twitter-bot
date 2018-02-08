@@ -10,10 +10,10 @@ def tweet_id2time(id)
 end
 
 client = Twitter::REST::Client.new do |config|
-  config.consumer_key = 'jghnnB4gHedRSax950VmynouN' #'9Ppo8shVjfKpJPFkgiTeX5zGz'
-  config.consumer_secret = '29RlXKOFTKvV67LL8FqYIqk19wcX4rrB0jnIfN9nmaYhkm3gFc' #'CmOGIA04fHDvnS2R2RvcXQ6rHpNrX495ZZD1NEChmSOFw2IQAT'
-  config.access_token = '959057681163014144-2gly3YzWzCnZCUK3KuTUTLswGG9TDbD' #'959856376921993216-DTcqiGLN6VIgUjMAunP6UX4Vagl5B0g'
-  config.access_token_secret = 'OFqQFeIgPOQLSFiVc7Krmw1nYxpEAQPstqTh8ZZeZPR4h' #'aVkFsFqzOMNgJfzLK8x5ZyIYtbZNaAJ3FAXsRKo5JNnfg'
+  config.consumer_key = 'jghnnB4gHedRSax950VmynouN' 
+  config.consumer_secret = '29RlXKOFTKvV67LL8FqYIqk19wcX4rrB0jnIfN9nmaYhkm3gFc'
+  config.access_token = '959057681163014144-2gly3YzWzCnZCUK3KuTUTLswGG9TDbD'
+  config.access_token_secret = 'OFqQFeIgPOQLSFiVc7Krmw1nYxpEAQPstqTh8ZZeZPR4h' 
 end
 
 def translate(text)
@@ -31,10 +31,10 @@ def translate(text)
 end
 
 # 10分前の時刻を取得
-minute_past_time = Time.new - 1 * 60 * 10 * 2
+minute_past_time = Time.new - 1 * 60 * 10
 
 # 特定ユーザのtimelineを件数(10件)指定して取得
-client.user_timeline("pr2jsk", { count: 10 } ).each do |timeline|
+client.user_timeline("Bitcoin", { count: 10 } ).reverse_each do |timeline|
   if tweet_id2time(client.status(timeline.id).id) > minute_past_time then
     text =  client.status(timeline.id).text
     jp_text = translate(text)
@@ -42,34 +42,3 @@ client.user_timeline("pr2jsk", { count: 10 } ).each do |timeline|
     client.update(jp_text)
   end
 end
-
-
-'''
-# search
-client.search("to:qiita", lang: "ja").take(10).each do |tweet|
-  pp "tweet.class Twitter::twitter"
-  pp tweet.class
-  pp "tweet.favorite_count fav数"
-  pp tweet.favorite_count
-  pp "tweet.filter_level"
-  pp tweet.filter_level
-
-  pp "tweet.in_reply_to_screen_name"
-  pp tweet.in_reply_to_screen_name
-  pp "tweet.in_reply_to_status_id"
-  pp tweet.in_reply_to_status_id
-  pp "tweet.in_reply_to_user_id"
-  pp tweet.in_reply_to_user_id
-  pp "tweet.lang"
-  pp tweet.lang
-  pp "tweet.retweet_count"
-  pp tweet.retweet_count
-  pp "tweet.source"
-  pp tweet.source
-  pp "tweet.text #ツイート内容"
-  pp tweet.text #ツイート内容
-end
-
-#access_tokenを登録したユーザでtweetする
-pp client.update("twitter-apiを使ってrubyでツイート！")
-'''
