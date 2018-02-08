@@ -18,7 +18,7 @@ end
 minute_past_time = Time.new - 1 * 60 * 60 * 10
 
 # 特定ユーザのtimelineを件数(10件)指定して取得
-client.user_timeline("pr2jsk", { count: 10 } ).each do |timeline|
+client.user_timeline("Bitcoin", { count: 10 } ).each do |timeline|
   if tweet_id2time(client.status(timeline.id).id) > minute_past_time then
     text =  client.status(timeline.id).text
     puts text
