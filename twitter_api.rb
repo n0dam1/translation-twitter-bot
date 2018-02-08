@@ -39,7 +39,7 @@ client.user_timeline("pr2jsk", { count: 10 } ).each do |timeline|
     text =  client.status(timeline.id).text
     jp_text = translate(text)
     #puts jp_text
-    client.update(text)
+    client.update(jp_text)
   end
 end
 
