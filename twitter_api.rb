@@ -3,7 +3,7 @@ require 'twitter'
 require 'pp'
 
 def tweet_id2time(id)
-      Time.at(((id.to_i >> 22) + 1288834974657) / 1000.0)
+    Time.at(((id.to_i >> 22) + 1288834974657) / 1000.0)
 end
 
 client = Twitter::REST::Client.new do |config|
@@ -13,9 +13,24 @@ client = Twitter::REST::Client.new do |config|
   config.access_token_secret = 'OFqQFeIgPOQLSFiVc7Krmw1nYxpEAQPstqTh8ZZeZPR4h' #'aVkFsFqzOMNgJfzLK8x5ZyIYtbZNaAJ3FAXsRKo5JNnfg'
 end
 
+'''
+def translate(text)
+    url = URL.parse()
+    params = {
+        q: q,
+        target: "ja",
+        source: "en",
+        key: ""
+    }
+    url.query = URI.encode_www_form(params)
+    res = Net::HTTP.get_response(url)
+    JSON.parse(res.body)["data"]["translation"].first["translatedText"]
+end
+'''
+
 
 # 一分前の時刻を取得
-minute_past_time = Time.new - 1 * 60 * 60 * 10
+minute_past_time = Time.new - 1 * 60 * 10
 
 # 特定ユーザのtimelineを件数(10件)指定して取得
 client.user_timeline("Bitcoin", { count: 10 } ).each do |timeline|
