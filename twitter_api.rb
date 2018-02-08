@@ -15,7 +15,7 @@ end
 
 
 # 一分前の時刻を取得
-minute_past_time = Time.new - 1 * 60 * 60
+minute_past_time = Time.new - 1 * 60 * 60 * 10
 
 # 特定ユーザのtimelineを件数(10件)指定して取得
 client.user_timeline("pr2jsk", { count: 10 } ).each do |timeline|
