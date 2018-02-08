@@ -3,6 +3,3 @@ source "https://rubygems.org"
 
 # gem "rails"
 gem "twitter"
-gem "net"
-gem "uri"
-gem "json"
