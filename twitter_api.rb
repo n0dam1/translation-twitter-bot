@@ -12,10 +12,10 @@ def tweet_id2time(id)
 end
 
 client = Twitter::REST::Client.new do |config|
-  config.consumer_key = 'jghnnB4gHedRSax950VmynouN' 
-  config.consumer_secret = '29RlXKOFTKvV67LL8FqYIqk19wcX4rrB0jnIfN9nmaYhkm3gFc'
-  config.access_token = '959057681163014144-2gly3YzWzCnZCUK3KuTUTLswGG9TDbD'
-  config.access_token_secret = 'OFqQFeIgPOQLSFiVc7Krmw1nYxpEAQPstqTh8ZZeZPR4h' 
+  config.consumer_key = ENV['CONSUMER_KEY'] 
+  config.consumer_secret = ENV['CONSUMER_SECRET']
+  config.access_token = ENV['ACCESS_TOKEN']
+  config.access_token_secret = ENV['ACCESS_TOKEN_SECRET']
 end
 
 def translate(text)
@@ -25,7 +25,7 @@ def translate(text)
         q: text,
         target: "ja",
         source: "en",
-        key: "AIzaSyDz65XDH_x_8dAsg1ChMSLBnSBvo4G8b2Q"
+        key: ENV['GCP_KEY']
     }
     url.query = URI.encode_www_form(params)
     res = Net::HTTP.get_response(url)
